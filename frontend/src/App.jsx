@@ -101,7 +101,7 @@ function App() {
                 </div>
 
                 <div className="col-span-1 relative">
-                    <div className="cart fixed top-0 flex flex-col min-h-[calc(100vh-4rem)]">
+                    <div className="cart sticky top-0 flex flex-col min-h-[calc(100vh-4rem)]">
                         <h1 className="text-4xl font-serif">Cart</h1>
                         <ul className="cart-items w-full mt-6 flex flex-col gap-4 flex-grow">
                             {!cart.length ? (
