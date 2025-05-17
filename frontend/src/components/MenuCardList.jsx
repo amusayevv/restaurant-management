@@ -27,7 +27,7 @@ function MenuCardList({ addToCart }) {
     }, []);
 
     return (
-        <li className="grid grid-cols-2 gap-4 w-full">
+        <li className="grid pt-10 grid-cols-2 gap-4 w-full">
             {menuItems.map((menuItem) => {
                 return (
                     <MenuCard

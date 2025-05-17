@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 function MenuCard({ id, name, description, category, price, addToCart }) {
-    const [cart, setCart] = useState([]);
-
     function handleAddToCart() {
         addToCart({ id, name, description, category, price });
     }

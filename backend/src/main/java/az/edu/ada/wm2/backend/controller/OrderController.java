@@ -34,7 +34,9 @@ public class OrderController {
             orderItems.add(orderItem);
         });
 
-        Orders orders = new Orders(orderItems);
+        int tableId = orderRequestDTO.getTableId();
+
+        Orders orders = new Orders(tableId, orderItems);
         orders.setOrderStatus(OrderStatus.IN_PREPARATION);
         orderService.placeOrder(orders);
         System.out.println(orders.toString());
@@ -43,5 +45,15 @@ public class OrderController {
     @GetMapping("/order")
     public List<Orders> getOrders() {
         return orderService.getOrders();
+    }
+
+    @DeleteMapping("/order/{id}")
+    public void deleteOrder(@PathVariable String id) {
+        orderService.deleteOrder(id);
+    }
+
+    @DeleteMapping("/order")
+    public void deleteOrder() {
+        orderService.deleteOrder();
     }
 }

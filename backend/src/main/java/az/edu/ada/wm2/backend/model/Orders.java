@@ -18,6 +18,9 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private int tableId;
+    private double totalPrice;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
@@ -31,7 +34,18 @@ public class Orders {
         this.localDateTime = LocalDateTime.now();
     }
 
-    public Orders(List<OrderItem> orderItems) {
+    public Orders(int tableId, List<OrderItem> orderItems) {
+        this.tableId = tableId;
         this.orderItems = orderItems;
+        this.calculateTotalPrice();
     }
+
+    public void calculateTotalPrice() {
+        double rawTotal = orderItems.stream()
+                .mapToDouble(item -> item.getMenuItem().getPrice() * item.getQuantity())
+                .sum();
+
+        this.totalPrice = Math.round(rawTotal * 100.0) / 100.0;
+    }
+
 }

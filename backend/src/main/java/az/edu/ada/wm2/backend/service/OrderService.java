@@ -26,4 +26,12 @@ public class OrderService {
     public List<Orders> getOrders() {
         return ordersRepo.findAll();
     }
+
+    public void deleteOrder(String id) {
+        ordersRepo.deleteById(id);
+    }
+
+    public void deleteOrder() {
+        ordersRepo.deleteAll();
+    }
 }
