@@ -31,4 +31,9 @@ public class MenuService {
         menuItem.setId(id);
         menuItemRepo.save(menuItem);
     }
+
+    public MenuItem getMenuItemById(String id) {
+        return menuItemRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("MenuItem not found with id: " + id));
+    }
 }

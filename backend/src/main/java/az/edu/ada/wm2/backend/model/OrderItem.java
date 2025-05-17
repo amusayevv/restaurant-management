@@ -1,18 +1,26 @@
 package az.edu.ada.wm2.backend.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderItem {
+    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
+    @ManyToOne
+    private MenuItem menuItem;
+
     private int quantity;
 
-    @OneToOne
-    @JoinColumn(name = "menu_item_id")
-    private MenuItem menuItem;
+    public OrderItem(MenuItem menuItem, int quantity) {
+        this.menuItem = menuItem;
+        this.quantity = quantity;
+    }
 }
