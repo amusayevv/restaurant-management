@@ -1,1 +1,7 @@
 .vscode
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

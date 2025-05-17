@@ -65,10 +65,11 @@ function App() {
 
     function placeOrder() {
         const url = "http://localhost:8080/order";
-        const orderItem = {
-            items: cart,
-            totalAmount: totalPrice,
-            orderDate: new Date().toISOString(),
+        const orderItems = {
+            orderItems: cart.map((orderItem) => ({
+                id: orderItem.id,
+                quantity: orderItem.quantity,
+            })),
         };
 
         try {
@@ -77,7 +78,7 @@ function App() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(orderItem),
+                body: JSON.stringify(orderItems),
             });
 
             if (!response.ok) {
@@ -89,7 +90,7 @@ function App() {
             console.error(error);
         }
 
-        console.log("Order data that would be sent:", orderItem);
+        console.log("Order data that would be sent:", orderItems);
         setCart([]);
     }
 
