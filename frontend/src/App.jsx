@@ -134,7 +134,7 @@ function App() {
 
     return (
         <div>
-            <div className="w-full px-10 grid grid-cols-3 gap-10 box-border">
+            <div className="w-full px-10 grid grid-cols-1 lg:grid-cols-3 gap-10 box-border">
                 <div className="col-span-2">
                     <MenuCardList addToCart={addToCart} />
                 </div>
