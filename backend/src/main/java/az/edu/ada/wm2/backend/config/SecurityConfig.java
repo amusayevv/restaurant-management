@@ -34,6 +34,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/menu", "/api/menu/**").permitAll()
                         .requestMatchers("/api/order", "/api/order/**").permitAll()
                         .requestMatchers("/api/user", "/api/user/**").permitAll()
+                        .requestMatchers("/kitchen", "/kitchen/**").hasAnyRole("KITCHEN", "MANAGER")
+                        .requestMatchers("/waiter", "/waiter/**").hasAnyRole("WAITER", "MANAGER")
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .logout(Customizer.withDefaults())

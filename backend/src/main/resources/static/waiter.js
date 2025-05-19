@@ -1,7 +1,6 @@
 async function updateOrderStatus(orderId) {
     const url = `http://localhost:8080/api/order/${orderId}`;
-    const select = document.getElementById(`order-status-${orderId}`);
-    const newStatus = select.value;
+    const newStatus = "DELIVERED";
 
     try {
         const response = await fetch(url, {
@@ -46,16 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>Order #${order.id}</p>
                     <p>Table: ${order.tableId}</p>
                     <p>Status: ${order.orderStatus}</p>
-                    <select name="order-status" id="order-status-${order.id}">
-                        <option value="IN_PREPARATION" ${
-                            order.orderStatus === "IN_PREPARATION"
-                                ? "selected"
-                                : ""
-                        }>In preparation</option>
-                        <option value="READY" ${
-                            order.orderStatus === "READY" ? "selected" : ""
-                        }>Ready</option>
-                    </select>
                     <p>Date: ${new Date(
                         order.localDateTime
                     ).toLocaleString()}</p>
@@ -75,7 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         .join("")}
                 </ul>
 
-                <button onClick="updateOrderStatus('${order.id}')">Save</button>
+                <button onClick="updateOrderStatus('${
+                    order.id
+                }')">Set delivered</button>
             `;
 
             listGroup.appendChild(orderItem);
