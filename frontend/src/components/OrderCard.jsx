@@ -7,7 +7,7 @@ function OrderCard({ orderItems, status, id, totalPrice, onDelete }) {
     }
 
     const handleDelete = async () => {
-        const url = "http://localhost:8080/order/" + id;
+        const url = "http://localhost:8080/api/order/" + id;
         try {
             await fetch(url, {
                 method: "DELETE",

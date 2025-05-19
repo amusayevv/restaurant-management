@@ -1,5 +1,6 @@
 package az.edu.ada.wm2.backend.service;
 
+import az.edu.ada.wm2.backend.DTO.OrderStatusDTO;
 import az.edu.ada.wm2.backend.model.Orders;
 import az.edu.ada.wm2.backend.repo.OrderItemRepo;
 import az.edu.ada.wm2.backend.repo.OrdersRepo;
@@ -33,5 +34,13 @@ public class OrderService {
 
     public void deleteOrder() {
         ordersRepo.deleteAll();
+    }
+
+    public void updateOrder(OrderStatusDTO orderStatusDTO, String id) {
+        Orders orderToUpdate = ordersRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+        orderToUpdate.setId(id);
+        orderToUpdate.setOrderStatus(orderStatusDTO.getOrderStatus());
+        ordersRepo.save(orderToUpdate);
     }
 }

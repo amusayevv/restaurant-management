@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/menu")
 public class MenuController {
     MenuService menuService;
     @Autowired
@@ -17,27 +17,22 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @GetMapping("/menu")
+    @GetMapping
     public List<MenuItem> showMenu() {
         return menuService.showMenu();
     }
 
-    @PostMapping("/menu")
+    @PostMapping
     public void addMenuItem(@RequestBody MenuItem menuItem) {
         menuService.addMenuItem(menuItem);
     }
 
-    @DeleteMapping("")
-    public ResponseEntity<String> delete() {
-        return ResponseEntity.ok("");
-    }
-
-    @DeleteMapping("/menu/{id}")
+    @DeleteMapping("/{id}")
     public void deleteMenuItem(@PathVariable String id) {
         menuService.deleteMenuItem(id);
     }
 
-    @PutMapping("/menu/{id}")
+    @PutMapping("/{id}")
     public void updateMenuItem(@PathVariable String id, @RequestBody MenuItem menuItem) {
         menuService.updateMenuItem(id, menuItem);
     }

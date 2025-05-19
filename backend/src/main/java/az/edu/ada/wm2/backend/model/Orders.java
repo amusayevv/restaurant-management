@@ -39,6 +39,13 @@ public class Orders {
         this.orderItems = orderItems;
         this.calculateTotalPrice();
     }
+    public Orders(int tableId, List<OrderItem> orderItems, OrderStatus orderStatus, double totalPrice, LocalDateTime localDateTime) {
+        this.tableId = tableId;
+        this.orderItems = orderItems;
+        this.orderStatus = orderStatus;
+        this.totalPrice = totalPrice;
+        this.localDateTime = localDateTime;
+    }
 
     public void calculateTotalPrice() {
         double rawTotal = orderItems.stream()

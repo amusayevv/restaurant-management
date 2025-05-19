@@ -21,7 +21,7 @@ function App() {
     }, []);
 
     const fetchData = async () => {
-        const url = "http://localhost:8080/order";
+        const url = "http://localhost:8080/api/order";
 
         try {
             const response = await fetch(url);
@@ -99,7 +99,7 @@ function App() {
     }
 
     const placeOrder = async () => {
-        const url = "http://localhost:8080/order";
+        const url = "http://localhost:8080/api/order";
         const orderItems = {
             tableId: tableId,
             orderItems: cart.map((orderItem) => ({

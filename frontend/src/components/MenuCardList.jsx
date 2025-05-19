@@ -5,7 +5,7 @@ function MenuCardList({ addToCart }) {
     const [menuItems, setMenuItems] = useState([]);
 
     const fetchData = async () => {
-        const url = "http://localhost:8080/menu";
+        const url = "http://localhost:8080/api/menu";
 
         try {
             const response = await fetch(url);
