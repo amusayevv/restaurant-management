@@ -1,20 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta
             name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-        />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="stylesheet" href="style.css" />
-        <title>Document</title>
-    </head>
-    <body>
-        <div class="cnt">
-            <h1>Waiter</h1>
-            <ul class="orders"></ul>
-        </div>
-        <script src="waiter.js"></script>
-    </body>
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>Document</title>
+</head>
+<body>
+<div class="cnt">
+    <h1>Waiter</h1>
+    <ul class="orders" th:if="${orders != null && !#lists.isEmpty(orders)}" >
+        <li th:each="order : ${orders}" class="order-item">
+            <h3 th:text="'Total $' + ${order.totalPrice}"></h3>
+            <div class="order-item-flex">
+                <p th:text="'Order #' + ${order.id}"></p>
+                <p th:text="'Table: ' + ${order.tableId}"></p>
+                <p th:text="'Status: ' + ${order.orderStatus}"></p>
+                <p th:text="'Date: ' + ${order.localDateTime}"></p>
+            </div>
+
+            <h4>Items:</h4>
+            <ul class="order-items-list" th:each="item : ${order.orderItems}">
+                <li th:text="${item.quantity} + ' x ' + ${item.menuItem.name} + ' - $' + ${item.menuItem.price * item.quantity}"></li>
+            </ul>
+
+            <button class="update-status-btn" th:data-order-id="${order.id}">Set delivered</button>
+        </li>
+    </ul>
+    <div th:unless="${orders != null}">No orders available</div>
+</div>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.update-status-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const orderId = this.getAttribute('data-order-id');
+                updateOrderStatus(orderId);
+            });
+        });
+    });
+
+    function updateOrderStatus(orderId) {
+        const url = `http://localhost:8080/api/order/${orderId}`;
+
+        fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                orderStatus: "DELIVERED",
+            }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error("Error updating order status:", error);
+                alert("Failed to update order status");
+            });
+    }
+</script>
+
+</body>
 </html>
