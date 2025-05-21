@@ -4,6 +4,7 @@ import az.edu.ada.wm2.backend.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
-public class Orders {
+public class Orders implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

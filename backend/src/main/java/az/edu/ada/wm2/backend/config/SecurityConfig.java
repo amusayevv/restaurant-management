@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/table", "/table/**").permitAll()
                         .requestMatchers("/kitchen", "/kitchen/**").hasAnyRole("KITCHEN", "MANAGER")
                         .requestMatchers("/waiter", "/waiter/**").hasAnyRole("WAITER", "MANAGER")
+                        .requestMatchers("/send", "/send/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .logout(Customizer.withDefaults())

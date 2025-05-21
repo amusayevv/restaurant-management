@@ -1,10 +1,13 @@
 package az.edu.ada.wm2.backend.service;
 
 import az.edu.ada.wm2.backend.DTO.OrderStatusDTO;
+import az.edu.ada.wm2.backend.enums.OrderStatus;
 import az.edu.ada.wm2.backend.model.Orders;
 import az.edu.ada.wm2.backend.repo.OrderItemRepo;
 import az.edu.ada.wm2.backend.repo.OrdersRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +26,7 @@ public class OrderService {
     public void placeOrder(Orders orders) {
         ordersRepo.save(orders);
     }
+
 
     public List<Orders> getOrders() {
         return ordersRepo.findAll();
