@@ -7,23 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class DataInitializer {
 
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DataInitializer(UserRepo userRepo) {
+    public DataInitializer(UserRepo userRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
     public CommandLineRunner initializeDefaultUsers(UserRepo userRepo) {
         return args -> {
-            createUserIfNotExists(userRepo, "admin", "admin", UserRole.MANAGER);
-            createUserIfNotExists(userRepo, "kitchen", "kitchen", UserRole.KITCHEN);
-            createUserIfNotExists(userRepo, "waiter", "waiter", UserRole.WAITER);
+            createUserIfNotExists(userRepo, "admin", passwordEncoder.encode("admin"), UserRole.MANAGER);
+            createUserIfNotExists(userRepo, "kitchen", passwordEncoder.encode("kitchen"), UserRole.KITCHEN);
+            createUserIfNotExists(userRepo, "waiter", passwordEncoder.encode("waiter"), UserRole.WAITER);
 
             System.out.println("Default users initialization completed");
         };
