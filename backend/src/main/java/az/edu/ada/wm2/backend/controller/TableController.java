@@ -38,6 +38,7 @@ public class TableController {
         String qrcode = Base64.getEncoder().encodeToString(image);
 
         model.addAttribute("url", url);
+
         model.addAttribute("qrcode", qrcode);
 
         return "qrcode";
